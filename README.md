@@ -1,107 +1,114 @@
 # DEFECT-DETECTION-IN-MANUFACTURING-USING-AI
-## Overview
-This project implements an automated defect detection system for industrial casting products using Deep Learning and Transfer Learning. A pre-trained MobileNetV2 model is fine-tuned to classify casting images as either defective or non-defective, enabling efficient quality inspection in manufacturing environments.
+[![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)](https://python.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?logo=tensorflow)](https://tensorflow.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.x-red?logo=streamlit)](https://streamlit.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-## Features
-- Automated defect detection from casting images
-- Transfer Learning using MobileNetV2
-- Fine-tuning for improved classification performance
-- Data augmentation and preprocessing
-- Model evaluation using classification metrics
-- Confusion matrix visualization
-- Model saving and deployment-ready export
+> **AI-powered computer vision system for real-time manufacturing quality inspection.**  
+> Classifies 6 types of metal surface defects using MobileNetV2 Transfer Learning.
 
-## Dataset
-The project uses the Real-Life Industrial Dataset of Casting Products available on Kaggle.
+---
 
-Dataset Link:
-https://www.kaggle.com/datasets/ravirajsinh45/real-life-industrial-dataset-of-casting-product
+##  Project Overview
 
-### Classes
-- Defective Casting (def_front)
-- Non-Defective Casting (ok_front)
+Manual visual inspection in manufacturing is slow, inconsistent, and expensive. This project builds an end-to-end AI defect detection pipeline that:
+- Classifies 6 steel surface defect types from product images
+- Provides defect inspection through an interactive Streamlit application.
+- Logs every prediction with timestamp, class, confidence, and severity
+- Offers an interactive Streamlit dashboard for production monitoring
 
-## Technologies Used
-- Python
-- TensorFlow / Keras
-- MobileNetV2
-- NumPy
-- Pandas
-- Matplotlib
-- Scikit-learn
-- OpenCV
+---
 
-## Project Workflow
-1. Load and preprocess casting images
-2. Split data into training, validation, and testing sets
-3. Apply data augmentation
-4. Build the MobileNetV2 transfer learning model
-5. Train the classification model
-6. Fine-tune the top layers of MobileNetV2
-7. Evaluate model performance
-8. Save the trained model for future use
+##  Key Features
 
-## Model Architecture
-- Base Model: MobileNetV2 (ImageNet Weights)
-- Global Average Pooling Layer
-- Batch Normalization Layer
-- Dense Layers with Dropout
-- Sigmoid Output Layer for Binary Classification
+| Feature | Details |
+|---------|--------|
+|  Dual Model Architecture | Custom CNN + MobileNetV2 Fine-Tuned |
+|  Severity Analysis | HIGH / MEDIUM / LOW confidence thresholds |
+|  Audit Logging | Automatic CSV logging of all predictions |
+|  Analytics Dashboard | Plotly interactive charts |
+|  Web App | Streamlit deployment with upload & history |
+|  Model Persistence | .h5 and SavedModel format exports |
 
-## Evaluation Metrics
-The model is evaluated using:
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- Confusion Matrix
+---
 
-## Results
-The trained model successfully classifies casting products into defective and non-defective categories, demonstrating the effectiveness of transfer learning for industrial quality inspection tasks.
+##  Project Structure
 
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/your-username/defect-detection-casting.git
-cd defect-detection-casting
+```
+defect-detection/
+├── defect_detection.ipynb      # Main Jupyter Notebook (all 20 sections)
+├── streamlit_app.py            # Streamlit web application
+├── mobilenetv2_defect.h5       # Saved best model
+├── inspection_log.csv          # Auto-generated prediction log
+├── inspection_dashboard.html   # Interactive Plotly dashboard
+├── requirements.txt            # Python dependencies
+├── data/                       # Dataset folder (download from Kaggle)
+│   ├── Cr/  In/  Pa/  PS/  RS/  Sc/
+└── README.md
 ```
 
-Install dependencies:
+---
+
+##  Installation
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/yourusername/defect-detection-ai.git
+cd defect-detection-ai
+
+# 2. Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 3. Install dependencies
 pip install -r requirements.txt
+
+# 4. Download dataset
+pip install kaggle
+kaggle datasets download -d fantacher/neu-metal-surface-defects-data
+unzip neu-metal-surface-defects-data.zip -d data/
+
+# 5. Run Jupyter Notebook
+jupyter notebook defect_detection.ipynb
+
+# 6. OR run Streamlit app (after training model)
+streamlit run streamlit_app.py
 ```
 
-## Run the Project
+---
 
-Open the Jupyter Notebook:
+##  Dataset
 
-```bash
-jupyter notebook
-```
+**NEU Metal Surface Defects Dataset** ([Kaggle Link](https://www.kaggle.com/datasets/fantacher/neu-metal-surface-defects-data))
 
-Run all cells in:
+| Class | Description | Images |
+|-------|-------------|--------|
+| Cr | Crazing | 200 |
+| In | Inclusion | 200 |
+| Pa | Patches | 200 |
+| PS | Pitted Surface | 200 |
+| RS | Rolled-in Scale | 200 |
+| Sc | Scratches | 200 |
 
-```text
-defect_detection_manufacturing.ipynb
-```
+Total: **1,200 images** | Split: **70/15/15** train/val/test
 
-## Saved Model
+---
 
-The trained model is stored as:
+##  Results
 
-```text
-defect_detection_model.keras
-```
+| Model | Test Accuracy | F1 Score | Inference Time |
+|-------|-------------|---------|----------------|
+| Custom CNN | ~83% | ~0.82 |
+| MobileNetV2 (fine-tuned) | **~95%** | **~0.95** |
 
-## Future Improvements
-- Real-time defect detection using webcam/video streams
-- Deployment using Flask or FastAPI
-- Explainable AI with Grad-CAM
-- Multi-class defect classification
-- Integration with industrial inspection systems
+---
 
-## Author
-Charan Reddy Padala
+##  Tech Stack
+
+- **Deep Learning**: TensorFlow 2.x, Keras, MobileNetV2
+- **Computer Vision**: OpenCV
+- **Data Science**: NumPy, Pandas, Scikit-learn
+- **Visualisation**: Matplotlib, Seaborn, Plotly
+- **Deployment**: Streamlit
+
+---
